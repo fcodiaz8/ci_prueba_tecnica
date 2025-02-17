@@ -29,25 +29,36 @@ export const Window = styled.div`
 `;
 
 export const Title = styled.div`
-  background-color: lightgray; ///tmp
   width: 800px;
   height: 49px;
+  text-align: center;
+
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 44px;
+  letter-spacing: 0px;
+  color: #333333;
+
   margin-bottom: 13px;
 `;
 
 export const Description = styled.div`
-  background-color: lightgray; ///tmp
   height: 74px;
   margin-bottom: 35px;
+  font-size: 18px;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
 `;
 
 export const Content = styled.div`
-  background-color: lightgray; ///tmp
   height: 227px;
   margin-bottom: 30px;
+
+  border: solid 1px ${C.BORDER};
 `;
 
 export const Buttons = styled.div`
-  background-color: lightgray; ///tmp
   height: 49px;
 `;

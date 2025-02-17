@@ -13,7 +13,7 @@ export const Home = () => {
           pharetra vestibulum venenatis phasellus.
         </S.Description>
 
-        <S.Content>Box</S.Content>
+        <S.Content>Content</S.Content>
 
         <S.Buttons>Buttons</S.Buttons>
       </S.Window>
