@@ -1,3 +1,5 @@
 export const COLOR_PALETTE = {
-  BACKGROUND: "#C2E9FB",
+  BACKGROUND_1: "#A1C4FD",
+  BACKGROUND_2: "#C2E9FB",
+  WHITE: "#FFF",
 };
