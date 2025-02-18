@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/ci_prueba_tecnica.git/static/css/main.68ce0707.css",
+    "main.js": "/ci_prueba_tecnica.git/static/js/main.ad2ea2b4.js",
+    "static/js/488.7037c1b1.chunk.js": "/ci_prueba_tecnica.git/static/js/488.7037c1b1.chunk.js",
+    "static/media/Montserrat-Regular.ttf": "/ci_prueba_tecnica.git/static/media/Montserrat-Regular.cfbf0da06d33097e6d0a.ttf",
+    "static/media/Montserrat-Medium.ttf": "/ci_prueba_tecnica.git/static/media/Montserrat-Medium.d3f3d769c2fc1af5c0b4.ttf",
+    "index.html": "/ci_prueba_tecnica.git/index.html",
+    "main.68ce0707.css.map": "/ci_prueba_tecnica.git/static/css/main.68ce0707.css.map",
+    "main.ad2ea2b4.js.map": "/ci_prueba_tecnica.git/static/js/main.ad2ea2b4.js.map",
+    "488.7037c1b1.chunk.js.map": "/ci_prueba_tecnica.git/static/js/488.7037c1b1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.68ce0707.css",
+    "static/js/main.ad2ea2b4.js"
+  ]
+}
