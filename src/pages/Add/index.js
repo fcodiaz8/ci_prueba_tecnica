@@ -12,16 +12,22 @@ export const Add = () => {
     setNewItem(newValue);
   };
 
-  const addItem = (e) => {
-    let currentItems = localStorage.getItem("items");
-    currentItems = currentItems ? currentItems.split(",") : [];
+  const addItem = () => {
+    const currentItems = JSON.parse(localStorage.getItem("items")) || [];
     if (currentItems.includes(newItem)) {
       alert("Ya existe un elemento con el mismo texto");
     } else {
       currentItems.push(newItem);
-      localStorage.setItem("items", currentItems);
+      addAction("add", [newItem]);
+      localStorage.setItem("items", JSON.stringify(currentItems));
       navigate("/");
     }
+  };
+
+  const addAction = (type, items) => {
+    const newActions = JSON.parse(localStorage.getItem("actions")) || [];
+    newActions.push({ type, items });
+    localStorage.setItem("actions", JSON.stringify(newActions));
   };
 
   return (
@@ -34,11 +40,14 @@ export const Add = () => {
             value={newItem}
             onChange={handleChange}
             placeholder="Type the text here..."
+            autoFocus
+            onKeyDown={(e) => (e.key === "Enter" ? addItem() : {})}
           />
         </S.Content>
 
         <S.Buttons>
           <div />
+
           <div>
             <Button
               type="primary"
@@ -46,6 +55,7 @@ export const Add = () => {
               onClick={addItem}
               disabled={newItem === ""}
             />
+
             <Button
               type="secondary"
               label="CANCEL"

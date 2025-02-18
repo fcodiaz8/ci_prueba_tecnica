@@ -10,13 +10,13 @@ export const Button = styled.button`
   font-size: 16px;
   cursor: pointer;
 
+  display: flex;
+  align-items: center;
+
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
-
-  display: flex;
-  align-items: center;
 
   ${({ type }) => {
     if (type === "secondary") {

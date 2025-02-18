@@ -7,12 +7,12 @@ import { useNavigate } from "react-router-dom";
 export const Home = () => {
   const [items, setItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [actions, setActions] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    let currentItems = localStorage.getItem("items");
-    currentItems = currentItems ? currentItems.split(",") : [];
-    setItems(currentItems);
+    setItems(JSON.parse(localStorage.getItem("items")) || []);
+    setActions(JSON.parse(localStorage.getItem("actions")) || []);
   }, []);
 
   const toggleSelectItem = (e) => {
@@ -25,22 +25,58 @@ export const Home = () => {
     setSelectedItems(newSelectItems);
   };
 
-  const deleteItems = () => {
+  const deleteSelectedItems = () => {
     let newItems = structuredClone(items);
     newItems = newItems.filter((e) => !selectedItems.includes(e));
     setItems(newItems);
     setSelectedItems([]);
-    localStorage.setItem("items", newItems);
+    addAction("deleteItems", selectedItems);
+    localStorage.setItem("items", JSON.stringify(newItems));
   };
 
-  const handleDoubleClick = (item) => {
+  const deleteItem = (item) => {
     let newItems = structuredClone(items);
     newItems = newItems.filter((e) => e !== item);
     setItems(newItems);
     setSelectedItems((prevSelectedItems) =>
       prevSelectedItems.filter((e) => e !== item)
     );
-    localStorage.setItem("items", newItems);
+    addAction("deleteItems", [item]);
+    localStorage.setItem("items", JSON.stringify(newItems));
+  };
+
+  const addAction = (type, items) => {
+    const newActions = structuredClone(actions);
+    newActions.push({ type, items });
+    setActions(newActions);
+    localStorage.setItem("actions", JSON.stringify(newActions));
+  };
+
+  const revertAction = () => {
+    const newActions = structuredClone(actions);
+    const { type, items: actionItems } = newActions.pop();
+    let newItems = structuredClone(items);
+
+    switch (type) {
+      case "add":
+        newItems = newItems.filter((e) => e !== actionItems[0]);
+        setSelectedItems((prevSelectedItems) =>
+          prevSelectedItems.filter((e) => e !== actionItems[0])
+        );
+        break;
+
+      case "deleteItems":
+        newItems.push(...actionItems);
+        break;
+
+      default:
+        break;
+    }
+
+    setItems(newItems);
+    setActions(newActions);
+    localStorage.setItem("items", JSON.stringify(newItems));
+    localStorage.setItem("actions", JSON.stringify(newActions));
   };
 
   return (
@@ -62,21 +98,28 @@ export const Home = () => {
               label={e}
               selected={selectedItems.includes(e)}
               toggleSelectItem={toggleSelectItem}
-              handleDoubleClick={handleDoubleClick}
+              handleDoubleClick={deleteItem}
             />
           ))}
         </S.Content>
 
         <S.Buttons>
           <div>
-            <Button type="secondary" label="x" />
+            <Button
+              type="secondary"
+              icon="revert"
+              onClick={revertAction}
+              disabled={actions.length === 0}
+            />
+
             <Button
               type="secondary"
               label="DELETE"
-              onClick={deleteItems}
+              onClick={deleteSelectedItems}
               disabled={selectedItems.length === 0}
             />
           </div>
+
           <div>
             <Button
               type="primary"
