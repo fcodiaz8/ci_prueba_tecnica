@@ -2,10 +2,12 @@ import { useState } from "react";
 import * as S from "./styles";
 import { Button } from "../../components/Button";
 import { Item } from "../../components/Item";
+import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
   const [items, setItems] = useState(["Item 1", "Item 2", "Item 3"]);
   const [selectedItems, setSelectedItems] = useState([]);
+  const navigate = useNavigate();
 
   const toggleSelectItem = (e) => {
     let newSelectItems = structuredClone(selectedItems);
@@ -50,7 +52,11 @@ export const Home = () => {
             />
           </div>
           <div>
-            <Button type="primary" label="ADD" />
+            <Button
+              type="primary"
+              label="ADD"
+              onClick={() => navigate("/add")}
+            />
           </div>
         </S.Buttons>
       </S.Window>
