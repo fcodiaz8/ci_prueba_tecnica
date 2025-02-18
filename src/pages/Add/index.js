@@ -15,9 +15,13 @@ export const Add = () => {
   const addItem = (e) => {
     let currentItems = localStorage.getItem("items");
     currentItems = currentItems ? currentItems.split(",") : [];
-    currentItems.push(newItem);
-    localStorage.setItem("items", currentItems);
-    navigate("/");
+    if (currentItems.includes(newItem)) {
+      alert("Ya existe un elemento con el mismo texto");
+    } else {
+      currentItems.push(newItem);
+      localStorage.setItem("items", currentItems);
+      navigate("/");
+    }
   };
 
   return (

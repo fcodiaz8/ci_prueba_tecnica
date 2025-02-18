@@ -24,5 +24,11 @@ export const Item = styled.div`
   span {
     height: 22px;
     font-size: 18px;
+
+    width: 100%;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;

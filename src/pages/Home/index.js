@@ -25,6 +25,24 @@ export const Home = () => {
     setSelectedItems(newSelectItems);
   };
 
+  const deleteItems = () => {
+    let newItems = structuredClone(items);
+    newItems = newItems.filter((e) => !selectedItems.includes(e));
+    setItems(newItems);
+    setSelectedItems([]);
+    localStorage.setItem("items", newItems);
+  };
+
+  const handleDoubleClick = (item) => {
+    let newItems = structuredClone(items);
+    newItems = newItems.filter((e) => e !== item);
+    setItems(newItems);
+    setSelectedItems((prevSelectedItems) =>
+      prevSelectedItems.filter((e) => e !== item)
+    );
+    localStorage.setItem("items", newItems);
+  };
+
   return (
     <S.Home>
       <S.Window>
@@ -44,6 +62,7 @@ export const Home = () => {
               label={e}
               selected={selectedItems.includes(e)}
               toggleSelectItem={toggleSelectItem}
+              handleDoubleClick={handleDoubleClick}
             />
           ))}
         </S.Content>
@@ -54,6 +73,7 @@ export const Home = () => {
             <Button
               type="secondary"
               label="DELETE"
+              onClick={deleteItems}
               disabled={selectedItems.length === 0}
             />
           </div>
