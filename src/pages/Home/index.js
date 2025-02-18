@@ -1,4 +1,5 @@
 import * as S from "./styles";
+import { Button } from "../../components/Button";
 
 export const Home = () => {
   return (
@@ -15,7 +16,15 @@ export const Home = () => {
 
         <S.Content>Content</S.Content>
 
-        <S.Buttons>Buttons</S.Buttons>
+        <S.Buttons>
+          <div>
+            <Button type="secondary" label="x" />
+            <Button type="secondary" label="DELETE" />
+          </div>
+          <div>
+            <Button type="primary" label="ADD" />
+          </div>
+        </S.Buttons>
       </S.Window>
     </S.Home>
   );

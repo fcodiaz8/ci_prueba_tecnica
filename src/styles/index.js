@@ -4,4 +4,7 @@ export const COLOR_PALETTE = {
   BACKGROUND_3: "#F7F7F7",
   WHITE: "#FFF",
   BORDER: "#CCC",
+  BACKGROUND_BUTTON: "#324BFF",
+  BLACK: "#333",
+  SHADOW: "#0000001F",
 };
