@@ -51,10 +51,14 @@ export const Description = styled.div`
 `;
 
 export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+
   background-color: ${C.BACKGROUND_3};
   height: 227px;
   margin-bottom: 30px;
   border: solid 1px ${C.BORDER};
+  padding: 13px 11px;
 `;
 
 export const Buttons = styled.div`

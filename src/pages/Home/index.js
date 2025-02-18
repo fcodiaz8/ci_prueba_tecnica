@@ -1,7 +1,22 @@
+import { useState } from "react";
 import * as S from "./styles";
 import { Button } from "../../components/Button";
+import { Item } from "../../components/Item";
 
 export const Home = () => {
+  const [items, setItems] = useState(["Item 1", "Item 2", "Item 3"]);
+  const [selectedItems, setSelectedItems] = useState([]);
+
+  const toggleSelectItem = (e) => {
+    let newSelectItems = structuredClone(selectedItems);
+    if (newSelectItems.includes(e)) {
+      newSelectItems = newSelectItems.filter((item) => item !== e);
+    } else {
+      newSelectItems.push(e);
+    }
+    setSelectedItems(newSelectItems);
+  };
+
   return (
     <S.Home>
       <S.Window>
@@ -14,12 +29,25 @@ export const Home = () => {
           pharetra vestibulum venenatis phasellus.
         </S.Description>
 
-        <S.Content>Content</S.Content>
+        <S.Content>
+          {items.map((e) => (
+            <Item
+              key={e}
+              label={e}
+              selected={selectedItems.includes(e)}
+              toggleSelectItem={toggleSelectItem}
+            />
+          ))}
+        </S.Content>
 
         <S.Buttons>
           <div>
             <Button type="secondary" label="x" />
-            <Button type="secondary" label="DELETE" />
+            <Button
+              type="secondary"
+              label="DELETE"
+              disabled={selectedItems.length === 0}
+            />
           </div>
           <div>
             <Button type="primary" label="ADD" />
