@@ -1,9 +1,24 @@
+import { useState } from "react";
 import * as S from "./styles";
-import { Button } from "../../components/Button";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../../components/Button";
 
 export const Add = () => {
+  const [newItem, setNewItem] = useState("");
   const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    const newValue = e.target.value;
+    setNewItem(newValue);
+  };
+
+  const addItem = (e) => {
+    let currentItems = localStorage.getItem("items");
+    currentItems = currentItems ? currentItems.split(",") : [];
+    currentItems.push(newItem);
+    localStorage.setItem("items", currentItems);
+    navigate("/");
+  };
 
   return (
     <S.Add>
@@ -11,7 +26,11 @@ export const Add = () => {
         <S.Description>Add item to list</S.Description>
 
         <S.Content>
-          <input placeholder="Type the text here..." />
+          <input
+            value={newItem}
+            onChange={handleChange}
+            placeholder="Type the text here..."
+          />
         </S.Content>
 
         <S.Buttons>
@@ -20,7 +39,8 @@ export const Add = () => {
             <Button
               type="primary"
               label="ADD"
-              onClick={() => navigate("/add")}
+              onClick={addItem}
+              disabled={newItem === ""}
             />
             <Button
               type="secondary"

@@ -59,6 +59,7 @@ export const Content = styled.div`
   margin-bottom: 30px;
   border: solid 1px ${C.BORDER};
   padding: 13px 11px;
+  overflow-y: auto;
 `;
 
 export const Buttons = styled.div`

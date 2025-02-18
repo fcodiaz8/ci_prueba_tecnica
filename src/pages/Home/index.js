@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as S from "./styles";
 import { Button } from "../../components/Button";
 import { Item } from "../../components/Item";
 import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
-  const [items, setItems] = useState(["Item 1", "Item 2", "Item 3"]);
+  const [items, setItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    let currentItems = localStorage.getItem("items");
+    currentItems = currentItems ? currentItems.split(",") : [];
+    setItems(currentItems);
+  }, []);
 
   const toggleSelectItem = (e) => {
     let newSelectItems = structuredClone(selectedItems);
