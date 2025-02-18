@@ -27,34 +27,36 @@ export const Home = () => {
 
   const deleteSelectedItems = () => {
     let newItems = structuredClone(items);
+    const indexes = selectedItems.map((e) => newItems.indexOf(e));
     newItems = newItems.filter((e) => !selectedItems.includes(e));
     setItems(newItems);
     setSelectedItems([]);
-    addAction("deleteItems", selectedItems);
+    addAction("deleteItems", selectedItems, indexes);
     localStorage.setItem("items", JSON.stringify(newItems));
   };
 
   const deleteItem = (item) => {
     let newItems = structuredClone(items);
-    newItems = newItems.filter((e) => e !== item);
+    const index = newItems.indexOf(item);
+    newItems.splice(index, 1);
     setItems(newItems);
     setSelectedItems((prevSelectedItems) =>
       prevSelectedItems.filter((e) => e !== item)
     );
-    addAction("deleteItems", [item]);
+    addAction("deleteItems", [item], [index]);
     localStorage.setItem("items", JSON.stringify(newItems));
   };
 
-  const addAction = (type, items) => {
+  const addAction = (type, items, indexes) => {
     const newActions = structuredClone(actions);
-    newActions.push({ type, items });
+    newActions.push({ type, items, indexes });
     setActions(newActions);
     localStorage.setItem("actions", JSON.stringify(newActions));
   };
 
   const revertAction = () => {
     const newActions = structuredClone(actions);
-    const { type, items: actionItems } = newActions.pop();
+    const { type, items: actionItems, indexes } = newActions.pop();
     let newItems = structuredClone(items);
 
     switch (type) {
@@ -66,7 +68,10 @@ export const Home = () => {
         break;
 
       case "deleteItems":
-        newItems.push(...actionItems);
+        const orderedIndexes = structuredClone(indexes).sort();
+        orderedIndexes.forEach((index) => {
+          newItems.splice(index, 0, actionItems[indexes.indexOf(index)]);
+        });
         break;
 
       default:
